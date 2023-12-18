@@ -47,16 +47,16 @@ main (i32 argc, char *argv[])
   print_matrix (distance, SIZE, SIZE);
 #endif
 
-  f64 energy = lennard_jones (distance, 0.2, 3.);
+  f64 energy = lennard_jones (distance, EPSILON, R);
 
-#ifdef DEBUG2
+#ifdef DEBUG
   printf ("Print Energy matrix\n");
   printf ("Total energy : %lf\n", energy);
 #endif
 
-  f64 *force_x = compute_forces (distance, particules.x, 0.2, 3.);
-  f64 *force_y = compute_forces (distance, particules.y, 0.2, 3.);
-  f64 *force_z = compute_forces (distance, particules.z, 0.2, 3.);
+  f64 *force_x = compute_forces (distance, particules.x, EPSILON, R);
+  f64 *force_y = compute_forces (distance, particules.y, EPSILON, R);
+  f64 *force_z = compute_forces (distance, particules.z, EPSILON, R);
   f64 *force_xyz = forces (force_x, force_y, force_z);
 
 #ifdef DEBUG
