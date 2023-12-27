@@ -76,3 +76,34 @@ print_matrix_scientist (f64 *matrix, u64 size_m, u64 size_n)
       printf ("\n");
     }
 }
+
+void
+write_data (FILE *file, particules_t p)
+{
+  // TODO
+  size_t dim_x, dim_y, dim_z, iteration;
+
+  // Header
+  fprintf (file,
+           "CRYST1 %ld %ld %ld 90.00 90.00 90.00 P\nMODEL "
+           "%ld\n",
+           dim_x, dim_y, dim_z, iteration);
+
+  // Datas
+  for (size_t i = 0; i < SIZE; i++)
+    {
+      fprintf (file, "ATOM %ld C 0 %lf %lf %lf MRES\n", i, p.x[i], p.y[i],
+               p.z[i]);
+    }
+
+  // Footer
+  fprintf (file, "TER\nENDMDL\n");
+}
+
+void
+save (particules_t p)
+{
+  FILE *file = fopen ("output.pdb", "w");
+  write_data (file, p);
+  fclose (file);
+}
