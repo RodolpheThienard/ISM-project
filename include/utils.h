@@ -25,6 +25,12 @@ typedef struct
   f64 *z;
 } particules_t;
 
+typedef struct
+{
+  f64 energy;
+  f64 temperature;
+} cinetic_t;
+
 // Macros
 
 #define ALLOC(X, n)                                                           \
@@ -52,6 +58,11 @@ typedef struct
 #define N_SYM 27
 #define L 30
 #define R_CUT 10.0
+#define CONVERSION_FORCE 0.0001 * 4.186
+#define CONSTANTE_R 0.00199
+#define NDL 3 * SIZE - 3
+#define T0 300
+#define GAMMA 0.01
 
 // Functions
 

@@ -93,3 +93,35 @@ forces (f64 *x, f64 *y, f64 *z)
       }
   return forces;
 }
+
+f64
+cinetic_energy (particules_t p, f64 m, size_t n)
+{
+  f64 coef = 1. / 2 * CONVERSION_FORCE;
+  f64 sum = 0.;
+  for (size_t i = 0; i < n; i++)
+    {
+      f64 tmp = (p.x[i] * p.x[i] * p.y[i] * p.y[i] * p.z[i] * p.z[i]) / m;
+      sum += tmp;
+    }
+
+  return sum * coef;
+}
+
+/* NDL= 3xN_PARTICULES_TOTAL - 3 */
+f64
+cinetic_temperature (f64 energy)
+{
+  return (1. / (CONSTANTE_R * NDL)) * energy;
+}
+
+cinetic_t
+cinetic (particules_t p, f64 m, size_t n)
+{
+
+  f64 energy = cinetic_energy (p, m, n);
+  f64 temperature = cinetic_temperature (energy);
+  cinetic_t cinetic = { energy, temperature };
+  return cinetic;
+}
+
