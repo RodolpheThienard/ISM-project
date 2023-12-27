@@ -4,9 +4,9 @@ particules_t
 parser (FILE *file)
 {
   f64 *x, *y, *z;
-  ALLOC (sizeof (f64) * SIZE, x);
-  ALLOC (sizeof (f64) * SIZE, y);
-  ALLOC (sizeof (f64) * SIZE, z);
+  ALLOC (x, SIZE);
+  ALLOC (y, SIZE);
+  ALLOC (z, SIZE);
 
   particules_t particules = { x, y, z };
 
@@ -18,6 +18,33 @@ parser (FILE *file)
             particules.z + i);
 
   return particules;
+}
+
+particules_t
+periodic_location (particules_t p, f64 coef_x, f64 coef_y, f64 coef_z)
+{
+  f64 *x, *y, *z;
+  ALLOC (x, SIZE);
+  ALLOC (y, SIZE);
+  ALLOC (z, SIZE);
+
+  for (size_t i = 0; i < SIZE; i++)
+    {
+      x[i] = p.x[i] + coef_x;
+      y[i] = p.y[i] + coef_y;
+      z[i] = p.z[i] + coef_z;
+    }
+
+  particules_t p_out = { x, y, z };
+  return p_out;
+}
+
+void
+free_particules_t (particules_t p)
+{
+  free (p.x);
+  free (p.y);
+  free (p.z);
 }
 
 void
